@@ -16,30 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `crud_data_banjar`
---
-
-DROP TABLE IF EXISTS `crud_data_banjar`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `crud_data_banjar` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nama_banjar` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `crud_data_banjar`
---
-
-LOCK TABLES `crud_data_banjar` WRITE;
-/*!40000 ALTER TABLE `crud_data_banjar` DISABLE KEYS */;
-INSERT INTO `crud_data_banjar` VALUES (1,'Batu'),(2,'Gambang'),(3,'Pande'),(4,'Munggu'),(5,'Pandean'),(6,'Serangan'),(7,'Peregae'),(8,'Lebah Pangkung'),(9,'Pengiasan'),(10,'Alangkajeng'),(11,'Delod Bale Agung');
-/*!40000 ALTER TABLE `crud_data_banjar` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `crud_data_penduduk`
 --
 
@@ -61,9 +37,9 @@ CREATE TABLE `crud_data_penduduk` (
   UNIQUE KEY `nik` (`nik`),
   KEY `banjar` (`banjar`),
   KEY `jenis_kelamin` (`jenis_kelamin`),
-  CONSTRAINT `crud_data_penduduk_ibfk_1` FOREIGN KEY (`banjar`) REFERENCES `crud_data_banjar` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `crud_data_penduduk_ibfk_2` FOREIGN KEY (`jenis_kelamin`) REFERENCES `crud_meta_jenis_kelamin` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `crud_data_penduduk_ibfk_1` FOREIGN KEY (`banjar`) REFERENCES `ref_banjar` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `crud_data_penduduk_ibfk_2` FOREIGN KEY (`jenis_kelamin`) REFERENCES `ref_gender` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,18 +48,42 @@ CREATE TABLE `crud_data_penduduk` (
 
 LOCK TABLES `crud_data_penduduk` WRITE;
 /*!40000 ALTER TABLE `crud_data_penduduk` DISABLE KEYS */;
-INSERT INTO `crud_data_penduduk` VALUES (1,'5103020805960008','5103021415210012','I Gst Ngr Bagus Putra Mahendra Yasa',10,'Mengwi','1996-05-08',1,'ngurahmahendra@mengwi-badung.desa.id','mahendra.jpg'),(2,'5103025805960002','5103021415210012','Ni Komang Urmila Dewi',10,'Denpasar','1996-05-18',2,'urmiladewi18@gmail.com','urmila.jpg');
+INSERT INTO `crud_data_penduduk` VALUES (1,'5103020805960008','5103021415210012','I Gst Ngr Bagus Putra Mahendra Yasa',10,'Mengwi','1996-05-08',1,'ngurahmahendra@mengwi-badung.desa.id','mahendra.jpg'),(2,'5103025805960002','5103021415210012','Ni Komang Urmila Dewi',10,'Denpasar','1996-05-18',2,'urmiladewi18@gmail.com','urmila.jpg'),(3,'5103020301230004','5103021415210012','I Gusti Ayu Manik Mandala Putri',10,'Tabanan','2023-01-09',2,'manik.mandala@gmail.com','mandala.jpg');
 /*!40000 ALTER TABLE `crud_data_penduduk` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `crud_meta_jenis_kelamin`
+-- Table structure for table `ref_banjar`
 --
 
-DROP TABLE IF EXISTS `crud_meta_jenis_kelamin`;
+DROP TABLE IF EXISTS `ref_banjar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `crud_meta_jenis_kelamin` (
+CREATE TABLE `ref_banjar` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama_banjar` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ref_banjar`
+--
+
+LOCK TABLES `ref_banjar` WRITE;
+/*!40000 ALTER TABLE `ref_banjar` DISABLE KEYS */;
+INSERT INTO `ref_banjar` VALUES (1,'Batu'),(2,'Gambang'),(3,'Pande'),(4,'Munggu'),(5,'Pandean'),(6,'Serangan'),(7,'Peregae'),(8,'Lebah Pangkung'),(9,'Pengiasan'),(10,'Alangkajeng'),(11,'Delod Bale Agung');
+/*!40000 ALTER TABLE `ref_banjar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ref_gender`
+--
+
+DROP TABLE IF EXISTS `ref_gender`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ref_gender` (
   `id` int NOT NULL AUTO_INCREMENT,
   `jenis_kelamin` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
@@ -91,13 +91,13 @@ CREATE TABLE `crud_meta_jenis_kelamin` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `crud_meta_jenis_kelamin`
+-- Dumping data for table `ref_gender`
 --
 
-LOCK TABLES `crud_meta_jenis_kelamin` WRITE;
-/*!40000 ALTER TABLE `crud_meta_jenis_kelamin` DISABLE KEYS */;
-INSERT INTO `crud_meta_jenis_kelamin` VALUES (1,'Laki-Laki'),(2,'Perempuan');
-/*!40000 ALTER TABLE `crud_meta_jenis_kelamin` ENABLE KEYS */;
+LOCK TABLES `ref_gender` WRITE;
+/*!40000 ALTER TABLE `ref_gender` DISABLE KEYS */;
+INSERT INTO `ref_gender` VALUES (1,'Laki-Laki'),(2,'Perempuan');
+/*!40000 ALTER TABLE `ref_gender` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -109,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-14 15:11:41
+-- Dump completed on 2024-02-14 23:45:08
