@@ -13,6 +13,7 @@ if ( isset($_POST["insert"]) ) {
 }
 
 // database query
+
 // data ref query
 $ref_banjar = query('SELECT * FROM ref_banjar');
 $ref_gender = query('SELECT * FROM ref_gender');
@@ -54,7 +55,7 @@ $citizen_db = query('
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar bg-body-tertiary mb-5">
+    <nav class="navbar mb-5">
       <div class="container d-flex align-items-center justify-content-between">
         <a class="navbar-brand" href="#">
           <img src="./assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
@@ -80,8 +81,8 @@ $citizen_db = query('
         </div>
       </nav>
       <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead class="table-secondary">
+        <table class="table table-hover table-bordered text-nowrap">
+          <thead class="table-secondary text-center">
             <tr>
               <th scope="col">No</th>
               <th scope="col">Foto</th>
@@ -96,20 +97,47 @@ $citizen_db = query('
               <th scope="col">Email</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             <?php 
               $index = 1;
               foreach ($citizen_db as $citizen) : 
             ?>
             <tr>
+              <!-- hidden field -->
+              <input type="hidden" name="id">
               <!-- Index Field -->
               <th scope="row"><?= $index++; ?></th>
               <!-- Profile Photo Field -->
               <td><img src="" alt=""></td>
               <!-- Actions Field -->
               <td>
-                <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                
+                <a href="#"><button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                <!-- <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button></a> -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Hapus Data</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Konfirmasi hapus data ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button type="button" class="btn btn-danger">Hapus</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </td>
               <!-- NIK Field -->
               <td><a href="#"><?= $citizen["nik"]; ?></a></td>
