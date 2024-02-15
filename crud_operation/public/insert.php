@@ -1,15 +1,15 @@
 <?php 
 
-require "./functions/function.php";
+require "../include/function.php";
 
 // logout redirect
 if ( isset($_POST["logout"]) ) {
-  header('Location: ./login.php');
+  header('Location: login.php');
 }
 
 // back redirect
 if ( isset($_POST["home"]) ) {
-  header('Location: ./index.php');
+  header('Location: index.php');
 }
 
 // data ref query
@@ -54,7 +54,7 @@ if ( isset($_POST["add_data"]) ) {
     <nav class="navbar bg-body-tertiary mb-3">
       <div class="container d-flex align-items-center justify-content-between">
         <a class="navbar-brand" href="#">
-          <img src="./assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
+          <img src="../assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
         </a>
         <form action="" method="post">
           <button type="submit" class="btn btn-danger" name="logout">Logout</button>

@@ -1,7 +1,6 @@
 <?php 
 // load database connections
-require "./config/connection.php";
-require "modal.php";
+require "../include/connection.php";
 
 // query functions
 function query($query) {
@@ -48,9 +47,7 @@ function drop($id) {
   global $conn;
 
   mysqli_query($conn, "DELETE FROM crud_data_penduduk WHERE id=$id");
-  if ( mysqli_affected_rows($conn) > 0 ) {
-    show_result("Sukses hapus data", $operation);
-  }
+  //TODO: REFACTOR AND FIX THIS FUNCTION
 
   
 }

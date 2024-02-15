@@ -1,8 +1,8 @@
 <?php 
-require "./functions/function.php";
+require "../include/function.php";
 
 if ( isset($_POST["submit"])) {
-  header("Location: ./index.php");
+  header("Location: index.php");
 }
 
 ?>
@@ -57,7 +57,7 @@ if ( isset($_POST["submit"])) {
     <form class="p-4" action="" method="post">
       <!-- logo -->
       <div class="container d-flex align-item-center justify-content-center mb-2">
-        <img src="./assets/pic/logo-desa-mengwi-sm-300px.png" alt="logo desa mengwi">
+        <img src="../assets/pic/logo-desa-mengwi-sm-300px.png" alt="logo desa mengwi">
       </div>
       <!-- username -->
       <div class="mb-3">

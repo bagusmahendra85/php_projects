@@ -1,15 +1,15 @@
 <?php 
 
-require "./functions/function.php";
+require_once "../include/function.php";
 
 // logout redirect
 if ( isset($_POST["logout"]) ) {
-  header('Location: ./login.php');
+  header('Location: login.php');
 }
 
 // insert redirect
 if ( isset($_POST["insert"]) ) {
-  header('Location: ./insert.php');
+  header('Location: insert.php');
 }
 
 // database query
@@ -58,7 +58,7 @@ $citizen_db = query('
     <nav class="navbar mb-5">
       <div class="container d-flex align-items-center justify-content-between">
         <a class="navbar-brand" href="#">
-          <img src="./assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
+          <img src="../assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
         </a>
         <form action="" method="post">
           <button type="submit" class="btn btn-danger" name="logout">Logout</button>
