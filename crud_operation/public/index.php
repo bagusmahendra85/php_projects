@@ -17,6 +17,7 @@ if ( isset($_POST["insert"]) ) {
 // data ref query
 $ref_banjar = query('SELECT * FROM ref_banjar');
 $ref_gender = query('SELECT * FROM ref_gender');
+
 // main db query
 $citizen_db = query('
     SELECT
