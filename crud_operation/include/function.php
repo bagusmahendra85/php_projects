@@ -54,6 +54,41 @@ function drop($id) {
 
 // delete data end
 
+// search function
+
+function search($keyword) {
+  $query = "
+  SELECT
+        cp.id,
+        cp.nik,
+        cp.nomor_kk,
+        cp.nama,
+        rb.nama_banjar AS banjar,
+        rg.jenis_kelamin AS jenis_kelamin,
+        cp.tempat_lahir,
+        cp.tgl_lahir,
+        cp.email,
+        cp.foto
+    FROM
+        crud_data_penduduk AS cp
+    JOIN
+        ref_banjar AS rb ON cp.banjar = rb.id
+    JOIN
+        ref_gender AS rg ON cp.jenis_kelamin = rg.id
+    WHERE
+        cp.nik LIKE '%$keyword%' OR 
+        cp.nomor_kk LIKE '%$keyword%' OR 
+        cp.nama LIKE '%$keyword%' OR 
+        rb.nama_banjar LIKE '%$keyword%' OR 
+        rg.jenis_kelamin LIKE '%$keyword%' OR 
+        cp.email LIKE '%$keyword%'
+  ";
+
+  return query($query);
+}
+
+// search function end
+
 
 
 ?>

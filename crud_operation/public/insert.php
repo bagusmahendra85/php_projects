@@ -77,17 +77,17 @@ if ( isset($_POST["add_data"]) ) {
           <!-- NIK -->
           <div class="mb-3">
             <label for="nik" class="form-label">NIK</label>
-            <input type="text" class="form-control" id="nik" name="nik">
+            <input type="text" class="form-control" id="nik" name="nik" autocomplete="off">
           </div>
           <!-- Nomor KK -->
           <div class="mb-3">
             <label for="nomor_kk" class="form-label">Nomor KK</label>
-            <input type="text" class="form-control" id="nomor_kk" name="nomor_kk">
+            <input type="text" class="form-control" id="nomor_kk" name="nomor_kk" autocomplete="off">
           </div>
           <!-- Nama -->
           <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="nama" name="nama">
+            <input type="text" class="form-control" id="nama" name="nama" autocomplete="off">
           </div>
           <!-- Banjar -->
           <div class="mb-3">
@@ -102,7 +102,7 @@ if ( isset($_POST["add_data"]) ) {
           <!-- Tempat Lahir -->
           <div class="mb-3">
             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
+            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" autocomplete="off">
           </div>
           <!-- Tanggal Lahir -->
           <div class="mb-3">
@@ -122,7 +122,7 @@ if ( isset($_POST["add_data"]) ) {
           <!-- Email -->
           <div class="mb-4">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" autocomplete="off">
           </div>  
           <!-- submit button -->
           <button type="submit" class="btn btn-primary" name="add_data">Tambah</button>

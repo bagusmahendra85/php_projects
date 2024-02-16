@@ -2,16 +2,6 @@
 
 require_once "../include/function.php";
 
-// logout redirect
-if ( isset($_POST["logout"]) ) {
-  header('Location: login.php');
-}
-
-// insert redirect
-if ( isset($_POST["insert"]) ) {
-  header('Location: insert.php');
-}
-
 // database query
 
 // data ref query
@@ -38,7 +28,24 @@ $citizen_db = query('
     JOIN
         ref_gender AS rg ON cp.jenis_kelamin = rg.id;
     ');
-// var_dump($citizen_db); die;
+
+// logic
+
+// logout redirect
+if ( isset($_POST["logout"]) ) {
+  header('Location: login.php');
+}
+
+// insert redirect
+if ( isset($_POST["insert"]) ) {
+  header('Location: insert.php');
+}
+
+// search logic
+
+if ( isset($_POST["search"]) ) {
+  $citizen_db = search($_POST["keyword"]);
+}
 
 ?>
 
@@ -75,8 +82,8 @@ $citizen_db = query('
           <form action="" method="post">
             <button type="submit" class="btn btn-success" name="insert"><i class="fa-regular fa-square-plus"></i> Tambah Data</button>
           </form>
-          <form class="d-flex" role="search" action="" method="post" id="search">
-            <input class="form-control me-2" type="search" name="search" placeholder="Cari ..." aria-label="Search">
+          <form class="d-flex" role="search" action="" method="post">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Cari ..." aria-label="Search" autocomplete="off" autofocus>
             <button class="btn btn-outline-primary" type="submit" name="search">Cari</button>
           </form>
         </div>
