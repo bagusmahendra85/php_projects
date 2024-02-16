@@ -43,9 +43,16 @@ if ( isset($_POST["insert"]) ) {
 
 // search logic
 
-if ( isset($_POST["search"]) ) {
-  $citizen_db = search($_POST["keyword"]);
+if ( isset($_POST["search"]) ) {  
+  $citizen_db = search($_POST["keyword"],$_POST["search_category"]);
 }
+
+//debug
+
+// if ( isset($_POST["search"]) ) {
+//   var_dump($_POST);
+//   die;
+// }
 
 ?>
 
@@ -82,10 +89,21 @@ if ( isset($_POST["search"]) ) {
           <form action="" method="post">
             <button type="submit" class="btn btn-success" name="insert"><i class="fa-regular fa-square-plus"></i> Tambah Data</button>
           </form>
-          <form class="d-flex" role="search" action="" method="post">
-            <input class="form-control me-2" type="search" name="keyword" placeholder="Cari ..." aria-label="Search" autocomplete="off" autofocus>
-            <button class="btn btn-outline-primary" type="submit" name="search">Cari</button>
+          <!-- search -->
+          <form class="d-flex col-md-5" role="search" action="" method="post">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Cari ..." aria-label="Search" autocomplete="off" autofocus required>
+            <div class="col-md-3">
+              <select name="search_category" id="search_category" class="form-select ms-1">
+                <option value="cp.nik" name="search_category" >NIK</option>
+                <option value="cp.nomor_kk" name="search_category" >Nomor KK</option>
+                <option value="cp.nama" name="search_category" >Nama</option>
+                <option value="rb.nama_banjar" name="search_category" >Banjar</option>
+                <option value="cp.email" name="search_category" >Email</option>
+              </select>
+            </div>
+            <button class="btn btn-outline-primary ms-2" type="submit" name="search">Cari</button>
           </form>
+          <!-- search end -->
         </div>
       </nav>
       <div class="table-responsive">

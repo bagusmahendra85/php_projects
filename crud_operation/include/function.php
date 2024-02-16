@@ -56,7 +56,7 @@ function drop($id) {
 
 // search function
 
-function search($keyword) {
+function search($keyword, $category) {
   $query = "
   SELECT
         cp.id,
@@ -76,12 +76,7 @@ function search($keyword) {
     JOIN
         ref_gender AS rg ON cp.jenis_kelamin = rg.id
     WHERE
-        cp.nik LIKE '%$keyword%' OR 
-        cp.nomor_kk LIKE '%$keyword%' OR 
-        cp.nama LIKE '%$keyword%' OR 
-        rb.nama_banjar LIKE '%$keyword%' OR 
-        rg.jenis_kelamin LIKE '%$keyword%' OR 
-        cp.email LIKE '%$keyword%'
+        $category LIKE '%$keyword%' 
   ";
 
   return query($query);
