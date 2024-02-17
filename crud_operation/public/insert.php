@@ -19,9 +19,24 @@ $ref_gender = query('SELECT * FROM ref_gender');
 // citizen db query
 $crud_db = query('SELECT * FROM crud_data_penduduk');
 
-// add data
-if ( isset($_POST["add_data"]) ) {
-  insert($_POST);
+// insert data logic
+if (isset($_POST["add_data"])) {
+  if (insert($_POST) > 0) {
+      echo "
+      <script>
+        alert('Data Berhasil Ditambahkan!');
+        let choice = confirm('Tambah Data Lagi ?');
+        choice == true ? document.location.href = 'insert.php' : document.location.href = 'index.php';
+      </script>
+      ";
+  } else {
+      echo "
+      <script>
+        alert('Data Gagal Ditambahkan');
+        document.location.href = 'index.php';
+      </script>
+      ";
+  }
 }
 
 ?>
@@ -53,7 +68,7 @@ if ( isset($_POST["add_data"]) ) {
     <!-- Navbar -->
     <nav class="navbar bg-body-tertiary mb-3">
       <div class="container d-flex align-items-center justify-content-between">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.php">
           <img src="../assets/pic/logo-desa-mengwi-sm-300px.png" alt="Logo" width="30" class="d-inline-block align-text-top"> Project//CRUD
         </a>
         <form action="" method="post">
@@ -130,6 +145,7 @@ if ( isset($_POST["add_data"]) ) {
       </div>
     </main>
     <!-- Content end -->
+    
     <!-- Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
