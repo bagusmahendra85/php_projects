@@ -178,6 +178,50 @@ function upload() {
 
 // upload end ------------------------------
 
+// register/sign up ------------------------------
+
+function userSignup($data) {
+  global $conn;
+
+  $username = strtolower(stripslashes($data["username"]));
+  $password = mysqli_real_escape_string($conn, $data["password"]);
+  $confirmPassword = mysqli_real_escape_string($conn, $data["confirmPassword"]);
+  $user_email = $data["email"];
+  $user_fullname = htmlspecialchars($data["fullname"]);
+
+  //existing username on database check
+  $usernameQuery = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username';");
+
+  if (mysqli_fetch_assoc($usernameQuery)) {
+    echo "
+    <script>alert('Username sudah terdaftar!');</script>
+    ";
+
+    return false;
+  }
+
+  //password confirmation check
+
+  if ( $password != $confirmPassword ) {
+    echo "<script>alert('Password tidak sama!');</script>";
+    return false;
+  }
+
+  //encrypt password
+  $password = password_hash($password, PASSWORD_DEFAULT);
+  
+  //pass data on to database
+  mysqli_query($conn, "
+    INSERT INTO users (id, username, password, email, fullname) VALUES 
+    (NULL, '$username', '$password', '$user_email', '$user_fullname')
+  ;");
+
+  return mysqli_affected_rows($conn);
+
+}
+
+// register/sign up end ------------------------------
+
 
 
 ?>
