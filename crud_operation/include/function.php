@@ -20,6 +20,7 @@ function query($query) {
 function insert($data) {
   global $conn;
 
+  // store data into variables
   $nik = htmlspecialchars($data["nik"]);
   $nomor_kk = htmlspecialchars($data["nomor_kk"]);
   $nama = htmlspecialchars($data["nama"]);
@@ -28,11 +29,15 @@ function insert($data) {
   $tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
   $jenis_kelamin = htmlspecialchars($data["jenis_kelamin"]);
   $email = htmlspecialchars($data["email"]);
-
+  $foto = upload();
+  if (!$foto) {
+    return false;
+  }
+  // Validate and sanitize $tgl_lahir (date of birth)
   $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
 
   $query = "INSERT INTO crud_data_penduduk (id, nik, nomor_kk, nama, banjar, tempat_lahir, tgl_lahir, jenis_kelamin, email, foto) VALUES 
-            (NULL, '$nik', '$nomor_kk', '$nama', $banjar, '$tempat_lahir', '$tgl_lahir', $jenis_kelamin, '$email', '')";
+            (NULL, '$nik', '$nomor_kk', '$nama', $banjar, '$tempat_lahir', '$tgl_lahir', $jenis_kelamin, '$email', $foto)";
 
   mysqli_query($conn, $query);
 
@@ -94,8 +99,14 @@ function update($data) {
   $tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
   $jenis_kelamin = htmlspecialchars($data["jenis_kelamin"]);
   $email = htmlspecialchars($data["email"]);
-
+  $oldPhoto = htmlspecialchars($data["oldPhoto"]);
   $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
+
+  if ( $_FILES["photo"]["error"] == 4 ) {
+    $foto = $oldPhoto;
+  } else {
+    $foto = upload();
+  }
 
   $query = "UPDATE crud_data_penduduk SET 
             nik = '$nik', 
@@ -105,14 +116,66 @@ function update($data) {
             tempat_lahir = '$tempat_lahir', 
             tgl_lahir = '$tgl_lahir', 
             jenis_kelamin = $jenis_kelamin,
-            email = '$email' WHERE id = $id;";
+            email = '$email', 
+            foto = '$foto' WHERE id = $id;";
 
   mysqli_query($conn, $query);
+
 
   return mysqli_affected_rows($conn);
 
 }
 //update data end
+
+// upload
+
+function upload() {
+  $fileName = $_FILES['photo']['name'];
+  $fileSize = $_FILES['photo']['size']; // in bytes
+  $error = $_FILES['photo']['error'];
+  $tmpName = $_FILES['photo']['tmp_name'];
+
+  // check if there is photo uploaded
+  if ($error === 4) {
+    echo "
+    <script>alert('Silahkan upload foto terlebih dahulu!');</script>
+    ";
+    return false;
+  }
+  // file type validation
+  $allowedExtensions = ['jpg', 'jpeg', 'png','bmp','webp'];
+  $photoExtension = explode('.', $fileName);
+  $photoExtension = strtolower(end($photoExtension));
+
+  if ( !in_array($photoExtension, $allowedExtensions) ) {
+    echo "
+    <script>alert('File foto tidak valid!');</script>
+    ";
+
+    return false;
+  }
+  // file size validation
+  if ($fileSize > 2500000) { // higher than 2MB
+    echo "
+    <script>alert('File tidak boleh melebihi 2MB');</script>
+    ";
+
+    return false;
+  }
+
+  // checking passed
+  // generate new file name
+  $newFileName = uniqid();
+  $newFileName .= '.';
+  $newFileName .= $photoExtension;
+
+  // move uploaded photo dir
+  move_uploaded_file($tmpName, "../usr/data/photos/". $newFileName);
+
+  return $newFileName;
+}
+
+// upload end
 
 
 

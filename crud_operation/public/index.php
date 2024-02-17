@@ -135,7 +135,7 @@ if ( isset($_POST["search"]) ) {
               <!-- Index Field -->
               <th scope="row"><?= $index++; ?></th>
               <!-- Profile Photo Field -->
-              <td><img src="" alt=""></td>
+              <td><img src="../usr/data/photos/<?= $citizen["foto"]; ?>" width="50px" alt="Photo of <?= $citizen["nama"]; ?>"></td>
               <!-- Actions Field -->
               <td>
                 <a href="update.php?id=<?= $citizen["id"]; ?>"><button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button></a>

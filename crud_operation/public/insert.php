@@ -21,6 +21,7 @@ $crud_db = query('SELECT * FROM crud_data_penduduk');
 
 // insert data logic
 if (isset($_POST["add_data"])) {
+  
   if (insert($_POST) > 0) {
       echo "
       <script>
@@ -88,7 +89,7 @@ if (isset($_POST["add_data"])) {
     <main class="p-3">
       <div class="container">
         <h2 class="mb-3">Tambah Data Penduduk</h2>
-        <form action="" method="post" class="mb-2" id="add_citizen">
+        <form action="" method="post" class="mb-2" id="add_citizen" enctype="multipart/form-data">
           <!-- NIK -->
           <div class="mb-3">
             <label for="nik" class="form-label">NIK</label>
@@ -135,10 +136,15 @@ if (isset($_POST["add_data"])) {
             </select>
           </div>
           <!-- Email -->
-          <div class="mb-4">
+          <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" autocomplete="off">
           </div>  
+          <!-- Foto Profil -->
+          <div class="mb-4">
+            <label for="photo" class="form-label">Foto</label>
+            <input class="form-control" type="file" id="photo" name="photo">
+          </div>
           <!-- submit button -->
           <button type="submit" class="btn btn-primary" name="add_data">Tambah</button>
         </form>

@@ -52,7 +52,7 @@ if (isset($_POST["update"])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add New Data</title>
+    <title>Edit Data</title>
      <!-- Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Fontawesome Icon -->
@@ -94,8 +94,9 @@ if (isset($_POST["update"])) {
     <main class="p-3">
       <div class="container">
         <h2 class="mb-3">Edit Data Penduduk</h2>
-        <form action="" method="post" class="mb-2" id="add_citizen">
-          <input type="hidden" name="id" value="<?= $data["id"]; ?>" >
+        <form action="" method="post" class="mb-2" id="add_citizen" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="<?= $data["id"]; ?>">
+          <input type="hidden" name="oldPhoto" value="<?= $data["foto"]; ?>">
           <!-- NIK -->
           <div class="mb-3">
             <label for="nik" class="form-label">NIK</label>
@@ -145,6 +146,12 @@ if (isset($_POST["update"])) {
           <div class="mb-4">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" autocomplete="off" value="<?= $data["email"]; ?>">
+          </div>
+          <!-- Foto Profil -->
+          <div class="mb-4">
+            <label for="photo" class="form-label">Foto</label>
+            <img src="../usr/data/photos/<?= $data["foto"]; ?>" class="img-thumbnail" alt="">
+            <input class="form-control" type="file" id="photo" name="photo">
           </div>  
           <!-- submit button -->
           <button type="submit" class="btn btn-primary" name="update">Ubah</button>
