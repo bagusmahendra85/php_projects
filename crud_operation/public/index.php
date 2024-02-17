@@ -26,7 +26,8 @@ $citizen_db = query('
     JOIN
         ref_banjar AS rb ON cp.banjar = rb.id
     JOIN
-        ref_gender AS rg ON cp.jenis_kelamin = rg.id;
+        ref_gender AS rg ON cp.jenis_kelamin = rg.id
+    ORDER BY id;
     ');
 
 // logic
@@ -137,33 +138,8 @@ if ( isset($_POST["search"]) ) {
               <td><img src="" alt=""></td>
               <!-- Actions Field -->
               <td>
-                
                 <a href="#"><button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                <!-- <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button></a> -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Hapus Data</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        Konfirmasi hapus data ?
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button type="button" class="btn btn-danger">Hapus</button></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
+                <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button class="btn btn-outline-danger btn-sm" onclick="return confirm('Konfirmasi Hapus Data')"><i class="fa-solid fa-trash"></i></button></a>
               </td>
               <!-- NIK Field -->
               <td><a href="#"><?= $citizen["nik"]; ?></a></td>
