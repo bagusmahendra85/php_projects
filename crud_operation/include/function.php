@@ -1,8 +1,8 @@
 <?php 
 // load database connections
 require "../include/connection.php";
-
-// query functions
+//------------------------------
+// query functions ------------------------------
 function query($query) {
   global $conn;
 
@@ -14,9 +14,9 @@ function query($query) {
   }
   return $rows;
 }
-// query functions end
+// query functions end ------------------------------
 
-//insert data
+//insert data ------------------------------
 function insert($data) {
   global $conn;
 
@@ -37,16 +37,16 @@ function insert($data) {
   $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
 
   $query = "INSERT INTO crud_data_penduduk (id, nik, nomor_kk, nama, banjar, tempat_lahir, tgl_lahir, jenis_kelamin, email, foto) VALUES 
-            (NULL, '$nik', '$nomor_kk', '$nama', $banjar, '$tempat_lahir', '$tgl_lahir', $jenis_kelamin, '$email', $foto)";
+            (NULL, '$nik', '$nomor_kk', '$nama', $banjar, '$tempat_lahir', '$tgl_lahir', $jenis_kelamin, '$email', '$foto')";
 
   mysqli_query($conn, $query);
 
   return mysqli_affected_rows($conn);
 
 }
-//insert data end
+//insert data end ------------------------------
 
-// delete data
+// delete data ------------------------------
 function drop($id) {
   global $conn;
 
@@ -55,9 +55,9 @@ function drop($id) {
   return mysqli_affected_rows($conn);
 }
 
-// delete data end
+// delete data end ------------------------------
 
-// search function
+// search function ------------------------------
 function search($keyword, $category) {
   $query = "
   SELECT
@@ -79,13 +79,14 @@ function search($keyword, $category) {
         ref_gender AS rg ON cp.jenis_kelamin = rg.id
     WHERE
         $category LIKE '%$keyword%' 
+    ORDER BY cp.nomor_kk ASC;
   ";
 
   return query($query);
 }
-// search function end
+// search function end ------------------------------
 
-//update data
+//update data ------------------------------
 
 function update($data) {
   global $conn;
@@ -125,9 +126,9 @@ function update($data) {
   return mysqli_affected_rows($conn);
 
 }
-//update data end
+//update data end ------------------------------
 
-// upload
+// upload ------------------------------
 
 function upload() {
   $fileName = $_FILES['photo']['name'];
@@ -175,7 +176,7 @@ function upload() {
   return $newFileName;
 }
 
-// upload end
+// upload end ------------------------------
 
 
 

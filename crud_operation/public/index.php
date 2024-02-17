@@ -26,8 +26,8 @@ $citizen_db = query("
     JOIN
         ref_banjar AS rb ON cp.banjar = rb.id
     JOIN
-        ref_gender AS rg ON cp.jenis_kelamin = rg.id
-    ORDER BY id;
+        ref_gender AS rg ON cp.jenis_kelamin = rg.id 
+    ORDER BY cp.nomor_kk, id ASC;
     ");
 
 // logic
