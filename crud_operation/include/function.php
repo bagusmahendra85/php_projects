@@ -43,13 +43,11 @@ function insert($data) {
 
 // delete data
 function drop($id) {
-  $operation = "Hapus Data";
   global $conn;
 
   mysqli_query($conn, "DELETE FROM crud_data_penduduk WHERE id=$id");
-  //TODO: REFACTOR AND FIX THIS FUNCTION
-
   
+  return mysqli_affected_rows($conn);
 }
 
 // delete data end
