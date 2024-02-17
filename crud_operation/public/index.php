@@ -9,7 +9,7 @@ $ref_banjar = query('SELECT * FROM ref_banjar');
 $ref_gender = query('SELECT * FROM ref_gender');
 
 // main db query
-$citizen_db = query('
+$citizen_db = query("
     SELECT
         cp.id,
         cp.nik,
@@ -28,7 +28,7 @@ $citizen_db = query('
     JOIN
         ref_gender AS rg ON cp.jenis_kelamin = rg.id
     ORDER BY id;
-    ');
+    ");
 
 // logic
 
@@ -138,7 +138,7 @@ if ( isset($_POST["search"]) ) {
               <td><img src="" alt=""></td>
               <!-- Actions Field -->
               <td>
-                <a href="#"><button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                <a href="update.php?id=<?= $citizen["id"]; ?>"><button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button></a>
                 <a href="drop.php?id=<?= $citizen["id"]; ?>" ><button class="btn btn-outline-danger btn-sm" onclick="return confirm('Konfirmasi Hapus Data')"><i class="fa-solid fa-trash"></i></button></a>
               </td>
               <!-- NIK Field -->

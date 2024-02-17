@@ -53,7 +53,6 @@ function drop($id) {
 // delete data end
 
 // search function
-
 function search($keyword, $category) {
   $query = "
   SELECT
@@ -79,8 +78,41 @@ function search($keyword, $category) {
 
   return query($query);
 }
-
 // search function end
+
+//update data
+
+function update($data) {
+  global $conn;
+  
+  $id = $data["id"];
+  $nik = htmlspecialchars($data["nik"]);
+  $nomor_kk = htmlspecialchars($data["nomor_kk"]);
+  $nama = htmlspecialchars($data["nama"]);
+  $banjar = htmlspecialchars($data["banjar"]);
+  $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
+  $tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
+  $jenis_kelamin = htmlspecialchars($data["jenis_kelamin"]);
+  $email = htmlspecialchars($data["email"]);
+
+  $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
+
+  $query = "UPDATE crud_data_penduduk SET 
+            nik = '$nik', 
+            nomor_kk = '$nomor_kk', 
+            nama = '$nama', 
+            banjar = $banjar,
+            tempat_lahir = '$tempat_lahir', 
+            tgl_lahir = '$tgl_lahir', 
+            jenis_kelamin = $jenis_kelamin,
+            email = '$email' WHERE id = $id;";
+
+  mysqli_query($conn, $query);
+
+  return mysqli_affected_rows($conn);
+
+}
+//update data end
 
 
 
