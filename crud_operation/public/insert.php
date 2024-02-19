@@ -10,9 +10,8 @@ require "../include/function.php";
 
 // logout redirect
 if ( isset($_POST["logout"]) ) {
-  //destroy session
-  session_destroy();
-  header('Location: login.php');
+  logout();
+  exit;
 }
 
 // back redirect
