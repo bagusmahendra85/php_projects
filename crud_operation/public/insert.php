@@ -1,9 +1,17 @@
 <?php 
+session_start();
+
+if ( !isset($_SESSION["loggedIn"]) ) {
+  header("Location: login.php");
+  exit;
+}
 
 require "../include/function.php";
 
 // logout redirect
 if ( isset($_POST["logout"]) ) {
+  //destroy session
+  session_destroy();
   header('Location: login.php');
 }
 

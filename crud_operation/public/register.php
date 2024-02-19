@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if ( !isset($_SESSION["loggedIn"]) ) {
+  header("Location: login.php");
+  exit;
+}
+
 require "../include/function.php";
 
 if ( isset($_POST["signupCta"]) ) {
