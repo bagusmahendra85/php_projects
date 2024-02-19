@@ -1,12 +1,28 @@
 <?php 
 session_start();
+require "../include/function.php";
+
+//cookie check
+if ( isset($_COOKIE["user_id"]) && isset($_COOKIE['token']) ) {
+  $user_id = $_COOKIE['user_id'];
+  $token = $_COOKIE['token'];
+
+  $stmt = $conn -> prepare (' SELECT * FROM sessions WHERE user_id = ? AND token = ? ');
+  $stmt -> bind_param('is', $user_id, $token);
+  $stmt -> execute();
+  $result = $stmt -> get_result();
+  
+  
+  if ( $result -> num_rows === 1 ) {
+    $_SESSION["loggedIn"] = true;
+  }
+}
 
 if ( isset($_SESSION["loggedIn"]) ) {
   header("Location: index.php");
   exit;
 }
 
-require "../include/function.php";
 
 if (isset($_POST["login"]) ) {
   $username = $_POST["username"];
@@ -21,6 +37,21 @@ if (isset($_POST["login"]) ) {
     if(password_verify($password, $rows["password"])) {
       // add session
       $_SESSION["loggedIn"] = true;
+
+      //set cookie
+      if ( isset($_POST["rememberMe"]) ) {
+        $user_id = $rows['id'];
+        $token = bin2hex(random_bytes(32));
+        $hashedToken = hash('sha256', $token);
+
+        $stmt = $conn -> prepare('INSERT INTO sessions (id, user_id, token) VALUES (NULL, ?, ?)');
+        $stmt -> bind_param ('is', $user_id, $hashedToken);
+        $stmt -> execute();
+
+        setcookie('user_id', $user_id, time() + 86400 * 5);
+        setcookie('token', $hashedToken, time() + 86400 * 5);
+      }
+
       header("Location: index.php");
       exit;
     } 
@@ -45,7 +76,15 @@ if (isset($_POST["login"]) ) {
   <style>
 
       body {
-        background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,152,155,1) 0.1%, rgba(0,94,120,1) 94.2% );
+      background-color:#ff999e;
+      background-image:
+      radial-gradient(at 59% 53%, hsla(264,68%,73%,1) 0px, transparent 50%),
+      radial-gradient(at 84% 83%, hsla(261,60%,73%,1) 0px, transparent 50%),
+      radial-gradient(at 9% 25%, hsla(350,66%,64%,1) 0px, transparent 50%),
+      radial-gradient(at 72% 98%, hsla(201,67%,65%,1) 0px, transparent 50%),
+      radial-gradient(at 49% 39%, hsla(285,84%,60%,1) 0px, transparent 50%),
+      radial-gradient(at 60% 6%, hsla(279,86%,73%,1) 0px, transparent 50%),
+      radial-gradient(at 58% 55%, hsla(266,83%,66%,1) 0px, transparent 50%);
       }
 
       main {
@@ -54,42 +93,43 @@ if (isset($_POST["login"]) ) {
         display: flex;
         align-items: center;
         justify-content: center;
+        
       }
 
       form {
         /* glassmorphism */
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.7);
         border-radius: 16px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         border: 1px solid rgba(255, 255, 255, 0.3);
         /* glassmorphism end */
-        width: 20em;
+        width: 25em;
         border-radius: 10px;
-        margin-bottom: 200px;
-        color: #fff;
+        
       }
 
       form img {
-        max-width: 80px;
+        max-width: 7em;
       }
 
   </style>
 </head>
 <body>
-  <main class="container-fluid">
+  <main class="container-fluid d-flex flex-column">
     
-    <form class="p-4" action="" method="post">
+    <form class="p-4 mb-2" action="" method="post">
       <!-- logo -->
-      <div class="container d-flex align-item-center justify-content-center mb-2">
-        <img src="../assets/pic/logo-desa-mengwi-sm-300px.png" alt="logo desa mengwi">
+      <div class="container grid text-center mb-4">
+        <img src="../assets/pic/logo-garuda.png" alt="logo">
+        <p class="fw-bold">SISTEM INFORMASI DESA MENGWI</p>
       </div>
       <!-- message -->
       <?php if ( isset($error) ) : ?>
 
         <div class="alert alert-danger p-1 text-center" role="alert">
-        <i class="fa-regular fa-circle-xmark"></i> Username / Password Salah!
+        <i class="fa-regular fa-circle-xmark"></i> Username/Password Salah!
         </div>
 
       <?php endif; ?>
@@ -100,13 +140,25 @@ if (isset($_POST["login"]) ) {
         <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">  
       </div>
       <!-- password -->
-      <div class="mb-3">
+      <div class="mb-1">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" name="password" id="exampleInputPassword1">
       </div>
+      <!-- forgot password -->
+      <div class="mb-3">
+        <a href="#" class="link">Lupa Password</a>
+      </div>
+      <!-- remember me -->
+      <div class="mb-3">
+        <input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe">
+        <label for="rememberMe"> Ingat Saya</label>
+      </div>
       <!-- submit button -->
-      <button type="submit" name="login" class="btn btn-primary">Login</button>
+      <div class="d-flex justify-content-between">
+        <button type="submit" name="login" class="btn btn-primary">Masuk</button>
+      </div>
     </form>
+    <p class="fw-medium text-light">Belum mempunyai username ? <a href="register.php">Daftar Sekarang</a></p>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
