@@ -222,6 +222,35 @@ function userSignup($data) {
 
 // register/sign up end ------------------------------
 
+// logout
+
+function logout() {
+  global $conn;
+  //clear cookies
+  setcookie('user_id', '', time() - 3600);
+  setcookie('token', '', time() - 3600);
+
+  //destroy session
+  if (isset($_SESSION)) {
+    $_SESSION = [];
+    unset($_SESSION);
+    session_unset();
+    session_destroy();
+  }
+
+  //remove session record on the database
+  if ( isset($_COOKIE['user_id']) && isset($_COOKIE['token']) ) {
+    $user_id = $_COOKIE['user_id'];
+    $token = $_COOKIE['token'];
+
+    $stmt = $conn -> prepare (' DELETE FROM sessions WHERE user_id = ? AND token = ? ');
+    $stmt -> bind_param('is', $user_id, $token);
+    $stmt -> execute();
+  }
+
+  return header('Location: login.php');
+}
+
 
 
 ?>
