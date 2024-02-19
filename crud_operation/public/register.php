@@ -1,11 +1,4 @@
 <?php 
-session_start();
-
-if ( !isset($_SESSION["loggedIn"]) ) {
-  header("Location: login.php");
-  exit;
-}
-
 require "../include/function.php";
 
 if ( isset($_POST["signupCta"]) ) {
@@ -89,8 +82,9 @@ if ( isset($_POST["signupCta"]) ) {
           <input class="form-check-input me-2" type="checkbox" id="dataValidation">
           <label for="dataValidation">My data was valid and i have store my password safely.</label>
         </div>
-        <button type="submit" name="signupCta" id="signupCta" class="btn btn-primary disabled">Sign Me Up</button>
+        <button type="submit" name="signupCta" id="signupCta" class="btn btn-primary disabled mb-3">Sign Me Up</button>
       </form>
+      <p class="fw-medium">Already registered ? <a class="btn btn-sm btn-success" href="login.php">Login Here</a></p>
     </div>
   </main>
   <script>
@@ -108,8 +102,7 @@ if ( isset($_POST["signupCta"]) ) {
 
     termCheckbox.addEventListener('change', enableSignupButton);
     dataCheckbox.addEventListener('change', enableSignupButton);
-
-
+    
   </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
