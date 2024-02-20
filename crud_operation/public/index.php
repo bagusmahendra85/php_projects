@@ -6,6 +6,10 @@ if ( !isset($_SESSION["loggedIn"]) ) {
   exit;
 }
 
+if (!isset($_GET['page'])) {
+  $_GET['page'] = 1;
+}
+
 require_once "../include/function.php";
 
 // database query
@@ -13,6 +17,12 @@ require_once "../include/function.php";
 // data ref query
 $ref_banjar = query('SELECT * FROM ref_banjar');
 $ref_gender = query('SELECT * FROM ref_gender');
+
+// pagination
+$totalRecords = count(query('SELECT * FROM crud_data_penduduk'));
+$totalPages = ceil($totalRecords / $countPerPage);
+$currentPage = (isset($_GET['page'])) ? $_GET['page'] : 1;
+$startingIndex = ($currentPage - 1) * $countPerPage;
 
 // main db query
 $citizen_db = query("
@@ -33,7 +43,8 @@ $citizen_db = query("
         ref_banjar AS rb ON cp.banjar = rb.id
     JOIN
         ref_gender AS rg ON cp.jenis_kelamin = rg.id 
-    ORDER BY cp.nomor_kk, id ASC;
+    ORDER BY cp.nomor_kk, id ASC
+    LIMIT $startingIndex, $countPerPage;
     ");
 
 // logic
@@ -50,17 +61,9 @@ if ( isset($_POST["insert"]) ) {
 }
 
 // search logic
-
 if ( isset($_POST["search"]) ) {  
   $citizen_db = search($_POST["keyword"],$_POST["search_category"]);
 }
-
-//debug
-
-// if ( isset($_POST["search"]) ) {
-//   var_dump($_POST);
-//   die;
-// }
 
 ?>
 
@@ -133,7 +136,7 @@ if ( isset($_POST["search"]) ) {
           </thead>
           <tbody class="table-group-divider">
             <?php 
-              $index = 1;
+              $index = $startingIndex + 1;
               foreach ($citizen_db as $citizen) : 
             ?>
             <tr>
@@ -168,6 +171,28 @@ if ( isset($_POST["search"]) ) {
             <?php endforeach ?>
           </tbody>
         </table>
+      </div>
+      <div class="mt-3 mb-3" >
+        <!-- pagination -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <!-- previous link -->
+            <li class="page-item  <?= $_GET['page'] == 1 ? 'disabled' : ''; ?>">
+              <a class="page-link" href="?page=<?= ($_GET['page']) - 1; ?>">Previous</a>
+            </li>
+              <!-- page links -->
+              <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+              <li class="page-item <?= ($_GET['page'] == $i) ? 'active' : ''; ?>">
+                <a class="page-link" href="?page=<?= $i; ?>" ><?= $i ?></a>
+              </li>
+              <?php endfor; ?>
+              <!-- next link -->
+            <li class="page-item  <?= $_GET['page'] == $totalPages ? 'disabled' : ''; ?>">
+              <a class="page-link" href="?page=<?= ($_GET['page']) + 1; ?>">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- pagination end -->
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

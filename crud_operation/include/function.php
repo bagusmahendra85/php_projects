@@ -2,6 +2,8 @@
 // load database connections
 require "../include/connection.php";
 //------------------------------
+// table pagination configuration
+$countPerPage = 10;
 // query functions ------------------------------
 function query($query) {
   global $conn;
@@ -59,6 +61,14 @@ function drop($id) {
 
 // search function ------------------------------
 function search($keyword, $category) {
+  // pagination
+  global $countPerPage;
+  $totalRecords = count(query('SELECT * FROM crud_data_penduduk'));
+  $totalPages = ceil($totalRecords / $countPerPage);
+  $currentPage = (isset($_GET['page'])) ? $_GET['page'] : 1;
+  $startingIndex = ($currentPage - 1) * $countPerPage;
+  // pagination end
+
   $query = "
   SELECT
         cp.id,
@@ -79,7 +89,7 @@ function search($keyword, $category) {
         ref_gender AS rg ON cp.jenis_kelamin = rg.id
     WHERE
         $category LIKE '%$keyword%' 
-    ORDER BY cp.nomor_kk ASC;
+    ORDER BY cp.nomor_kk ASC LIMIT $startingIndex, $countPerPage
   ";
 
   return query($query);
@@ -222,7 +232,7 @@ function userSignup($data) {
 
 // register/sign up end ------------------------------
 
-// logout
+// logout ------------------------------
 
 function logout() {
   global $conn;
@@ -251,6 +261,6 @@ function logout() {
   return header('Location: login.php');
 }
 
-
+// logout end ------------------------------
 
 ?>
