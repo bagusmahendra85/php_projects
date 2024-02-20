@@ -102,7 +102,7 @@ if ( isset($_POST["search"]) ) {
           </form>
           <!-- search -->
           <form class="d-flex col-md-5" role="search" action="" method="post">
-            <input class="form-control me-2" type="search" name="keyword" placeholder="Cari ..." aria-label="Search" autocomplete="off" autofocus required>
+            <input class="form-control me-2" id="search" type="search" name="keyword" placeholder="Cari ..." aria-label="Search" autocomplete="off" autofocus required>
             <div class="col-md-3">
               <select name="search_category" id="search_category" class="form-select ms-1">
                 <option value="cp.nik" name="search_category" >NIK</option>
@@ -112,12 +112,12 @@ if ( isset($_POST["search"]) ) {
                 <option value="cp.email" name="search_category" >Email</option>
               </select>
             </div>
-            <button class="btn btn-outline-primary ms-2" type="submit" name="search">Cari</button>
+            <button class="btn btn-outline-primary ms-2" type="submit" name="search" id="cta_search">Cari</button>
           </form>
           <!-- search end -->
         </div>
       </nav>
-      <div class="table-responsive">
+      <div class="table-responsive" id="data_table">
         <table class="table table-hover table-bordered text-nowrap">
           <thead class="table-secondary text-center">
             <tr>
@@ -196,5 +196,6 @@ if ( isset($_POST["search"]) ) {
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="../script/script.js"></script>
   </body>
 </html>

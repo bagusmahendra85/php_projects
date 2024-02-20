@@ -63,8 +63,6 @@ function drop($id) {
 function search($keyword, $category) {
   // pagination
   global $countPerPage;
-  $totalRecords = count(query('SELECT * FROM crud_data_penduduk'));
-  $totalPages = ceil($totalRecords / $countPerPage);
   $currentPage = (isset($_GET['page'])) ? $_GET['page'] : 1;
   $startingIndex = ($currentPage - 1) * $countPerPage;
   // pagination end
