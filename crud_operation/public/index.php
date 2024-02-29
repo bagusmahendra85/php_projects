@@ -33,7 +33,7 @@ $citizen_db = query("
         cp.nama,
         rb.nama_banjar AS banjar,
         rg.jenis_kelamin AS jenis_kelamin,
-          cp.tempat_lahir,
+        cp.tempat_lahir,
         cp.tgl_lahir,
         cp.email,
         cp.foto

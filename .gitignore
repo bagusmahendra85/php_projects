@@ -1,1 +1,4 @@
 crud_operation/config/database.php
+crud_operation/vendor/
+crud_operation/composer.json
+crud_operation/composer.lock
