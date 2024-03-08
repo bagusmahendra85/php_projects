@@ -1,4 +1,4 @@
-<?php 
+<?php namespace App\Product;
 
 class Game extends Product implements ProductInfo {
   protected $playTime;

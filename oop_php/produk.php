@@ -1,5 +1,8 @@
 <?php 
 require "autoload/App/init.php";
+use App\Product\Book;
+use App\Product\Game;
+use App\Product\ProductRegistered;
 
 $sao = new Book("Sword Art Online", "Misashi Kobayakawa", "Silver Link", 55000, 470);
 $coralIsland = new Game("Coral Island", "Stairway Games", "Steam Incorporated", 150000, 32);

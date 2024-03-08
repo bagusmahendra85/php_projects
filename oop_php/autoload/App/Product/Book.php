@@ -1,4 +1,4 @@
-<?php 
+<?php namespace App\Product;
 
 class Book extends Product implements ProductInfo {
   protected $pages;

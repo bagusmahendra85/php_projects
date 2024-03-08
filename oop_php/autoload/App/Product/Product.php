@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Product;
 
 abstract class Product {
   protected $name,
