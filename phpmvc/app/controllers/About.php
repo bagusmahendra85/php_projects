@@ -2,7 +2,7 @@
 
 class About extends Controller{
   
-  public function index($name = "Mahendra", $job = "Full-stack Web Developer", $age = 28) {
+  public function index($name = "John Doe", $job = "Full-stack Web Developer", $age = 31) {
     $data["name"] = $name;
     $data["job"] = $job;
     $data["age"] = $age;
