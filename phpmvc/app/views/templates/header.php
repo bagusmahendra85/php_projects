@@ -8,10 +8,10 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container p-0">
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">PHP MVC</a>
+      <a class="navbar-brand" href="<?= BASEURL; ?>">PHP MVC</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,6 +22,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= BASEURL; ?>/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASEURL; ?>/employee">Employee</a>
           </li>
 
         </ul>
